@@ -21,6 +21,10 @@ Usage example:
 const classHooks = require('es6-class-hooks');
 
 class Test {
+    constructor() {
+        this.someVar = 'just an instance variable';
+    }
+
     foo(x) {
         console.log(`Executing foo with x=${x}`);
     }
@@ -31,6 +35,7 @@ class Test {
 }
 
 const wrapHook = (instance, func, args) => {
+    console.log(`Printing ${instance.someVar}`);
     console.log(`Calling ${func.name} with args: ${JSON.stringify(args)}`);
     const res = func(...args);
     console.log(`Called ${func.name} with args: ${JSON.stringify(args)}`);
@@ -46,7 +51,7 @@ testWithHooks.foo(4);
 console.log('============');
 testWithHooks.goo(3);
 
-
+//  Printing just an instance variable
 //  Calling foo with args: [4]
 //  Executing foo with x=4
 //  Called foo with args: [4]
