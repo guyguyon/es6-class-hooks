@@ -1,0 +1,22 @@
+{
+  "name": "es6-class-hooks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guyguyon/es6-class-hooks.git"
+  },
+  "author": "Guy Segev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guyguyon/es6-class-hooks/issues"
+  },
+  "homepage": "https://github.com/guyguyon/es6-class-hooks#readme",
+  "devDependencies": {
+    "jasmine": "^2.6.0"
+  }
+}
