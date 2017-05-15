@@ -30,7 +30,7 @@ class Test {
     }
 }
 
-const wrapHook = (func, args) => {
+const wrapHook = (instance, func, args) => {
     console.log(`Calling ${func.name} with args: ${JSON.stringify(args)}`);
     const res = func(...args);
     console.log(`Called ${func.name} with args: ${JSON.stringify(args)}`);

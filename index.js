@@ -1,12 +1,13 @@
 function classHooks(classObject, wrap, whiteList) {
     const classHandler = {
         construct: function (target, argumentsList, newTarget) {
+            const instance = new target(argumentsList);
 
             const instanceHandler = {
                 get: (target, property) => {
 
                     const functionWrapper = function(...args) {
-                        return wrap(target[property], args);
+                        return wrap(instance, target[property], args);
                     };
 
                     return !whiteList || (whiteList && whiteList.includes(property)) ?
@@ -15,7 +16,6 @@ function classHooks(classObject, wrap, whiteList) {
                 }
             };
 
-            const instance = new target(argumentsList);
             return new Proxy(instance, instanceHandler);
         }
     };

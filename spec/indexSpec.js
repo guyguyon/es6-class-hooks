@@ -2,6 +2,9 @@ const classHooks = require('../index');
 
 
 class Test {
+    constructor() {
+        this.someVar = 33;
+    }
 
     foo(a, b) {
         return a + b;
@@ -14,7 +17,7 @@ class Test {
 
 describe('tests', () => {
     it('wrap hook', () => {
-        const wrapHook = (func, args) => { return func(...args) * 2 };
+        const wrapHook = (instance, func, args) => { return func(...args) * 2; };
 
         const TestWithHooks = classHooks(Test, wrapHook);
 
@@ -26,8 +29,20 @@ describe('tests', () => {
         expect(test.foo(...args) * 2).toEqual(testWithHooks.foo(...args));
     });
 
+    it('access instance variable from the wrap function', () => {
+        const wrapHook = (instance, func, args) => {
+            return instance.someVar;
+        };
+
+        const TestWithHooks = classHooks(Test, wrapHook);
+        const testWithHooks = new TestWithHooks();
+        const args = [3, 4];
+
+        expect(testWithHooks.foo(...args)).toEqual(33);
+    });
+
     it('whitelist functions', () => {
-        const wrapHook = (func, args) => { return func(...args) * 2 };
+        const wrapHook = (instance, func, args) => { return func(...args) * 2 };
 
         const TestWithHooks = classHooks(Test, wrapHook, ['foo']);
 
