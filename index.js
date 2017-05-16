@@ -1,7 +1,7 @@
 function classHooks(classObject, wrap, whiteList) {
     const classHandler = {
         construct: function (target, argumentsList, newTarget) {
-            const instance = new target(argumentsList);
+            const instance = new target(...argumentsList);
 
             const instanceHandler = {
                 get: (target, property) => {
