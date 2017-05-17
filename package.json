@@ -1,6 +1,6 @@
 {
   "name": "es6-class-hooks",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,17 @@
     "type": "git",
     "url": "git+https://github.com/guyguyon/es6-class-hooks.git"
   },
+  "keywords": [
+    "es6",
+    "class",
+    "hooks",
+    "hook",
+    "wrap",
+    "js",
+    "node",
+    "before",
+    "after"
+  ],
   "author": "Guy Segev",
   "license": "ISC",
   "bugs": {
