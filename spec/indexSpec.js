@@ -1,4 +1,4 @@
-const classHooks = require('../index');
+const classHooks = require("../index");
 
 
 class Test {
@@ -13,11 +13,17 @@ class Test {
     goo(a, b) {
         return a - b;
     }
+
+    doo(a, b) {
+       return this.foo(a, b); 
+    }
 }
 
-describe('tests', () => {
-    it('wrap hook', () => {
-        const wrapHook = (instance, func, args) => { return func(...args) * 2; };
+describe("tests", () => {
+    it("wrap hook", () => {
+        function wrapHook(instance, func, args) { 
+            return func.call(this, ...args) * 2; 
+        }
 
         const TestWithHooks = classHooks(Test, wrapHook);
 
@@ -29,10 +35,23 @@ describe('tests', () => {
         expect(test.foo(...args) * 2).toEqual(testWithHooks.foo(...args));
     });
 
-    it('access instance variable from the wrap function', () => {
-        const wrapHook = (instance, func, args) => {
+    it("call function from another function", () => {
+        function wrapHook(instance, func, args) { 
+            return func.call(this, ...args) * 2; 
+        }
+
+        const TestWithHooks = classHooks(Test, wrapHook);
+        const testWithHooks = new TestWithHooks();
+
+        const args = [3, 4];
+
+        expect(testWithHooks.doo(...args)).toEqual(testWithHooks.foo(...args) * 2);
+    });
+
+    it("access instance variable from the wrap function", () => {
+        function wrapHook(instance, func, args) { 
             return instance.someVar;
-        };
+        }
 
         const TestWithHooks = classHooks(Test, wrapHook);
         const testWithHooks = new TestWithHooks();
@@ -41,10 +60,12 @@ describe('tests', () => {
         expect(testWithHooks.foo(...args)).toEqual(33);
     });
 
-    it('whitelist functions', () => {
-        const wrapHook = (instance, func, args) => { return func(...args) * 2 };
+    it("whitelist functions", () => {
+        function wrapHook(instance, func, args) { 
+            return func.call(this, ...args) * 2; 
+        }
 
-        const TestWithHooks = classHooks(Test, wrapHook, ['foo']);
+        const TestWithHooks = classHooks(Test, wrapHook, ["foo"]);
 
         const test = new Test();
         const testWithHooks = new TestWithHooks();

@@ -34,13 +34,13 @@ class Test {
     }
 }
 
-const wrapHook = (instance, func, args) => {
+function wrapHook(instance, func, args) {
     console.log(`Printing ${instance.someVar}`);
     console.log(`Calling ${func.name} with args: ${JSON.stringify(args)}`);
-    const res = func(...args);
+    const res = func.call(this, ...args);
     console.log(`Called ${func.name} with args: ${JSON.stringify(args)}`);
     return res;
-};
+}
 
 
 const TestWithHooks = classHooks(Test, wrapHook, ['foo']);
@@ -58,3 +58,6 @@ testWithHooks.goo(3);
 //  ============
 //  Executing goo with y=3
 ```
+
+## Updates
+v2.0.0 - using `receiver` to bind `this` currectly. It is *strongly* suggested to use regular function as wrapper and bind this to `func` instead of arrow function so `this` will pass to the function currectly. Look on the code sample for more information.
