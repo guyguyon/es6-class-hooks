@@ -1,4 +1,4 @@
-const classHooks = require('../index');
+const classHooks = require("../index");
 
 
 class Test {
@@ -19,8 +19,8 @@ class Test {
     }
 }
 
-describe('tests', () => {
-    it('wrap hook', () => {
+describe("tests", () => {
+    it("wrap hook", () => {
         function wrapHook(instance, func, args) { 
             return func.call(this, ...args) * 2; 
         }
@@ -35,7 +35,7 @@ describe('tests', () => {
         expect(test.foo(...args) * 2).toEqual(testWithHooks.foo(...args));
     });
 
-    it('call function from another function', () => {
+    it("call function from another function", () => {
         function wrapHook(instance, func, args) { 
             return func.call(this, ...args) * 2; 
         }
@@ -48,7 +48,7 @@ describe('tests', () => {
         expect(testWithHooks.doo(...args)).toEqual(testWithHooks.foo(...args) * 2);
     });
 
-    it('access instance variable from the wrap function', () => {
+    it("access instance variable from the wrap function", () => {
         function wrapHook(instance, func, args) { 
             return instance.someVar;
         }
@@ -60,12 +60,12 @@ describe('tests', () => {
         expect(testWithHooks.foo(...args)).toEqual(33);
     });
 
-    it('whitelist functions', () => {
+    it("whitelist functions", () => {
         function wrapHook(instance, func, args) { 
             return func.call(this, ...args) * 2; 
         }
 
-        const TestWithHooks = classHooks(Test, wrapHook, ['foo']);
+        const TestWithHooks = classHooks(Test, wrapHook, ["foo"]);
 
         const test = new Test();
         const testWithHooks = new TestWithHooks();
