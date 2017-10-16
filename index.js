@@ -4,10 +4,10 @@ function classHooks(classObject, wrap, whiteList) {
             const instance = new target(...argumentsList);
 
             const instanceHandler = {
-                get: (target, property) => {
+                get: (target, property, receiver) => {
 
                     const functionWrapper = function(...args) {
-                        return wrap(instance, target[property], args);
+                        return wrap.call(receiver, instance, target[property], args);
                     };
 
                     return !whiteList || (whiteList && whiteList.includes(property)) ?
